@@ -1,0 +1,37 @@
+{
+  "name": "agent-secrets-plumbing",
+  "version": "0.1.0",
+  "description": "Safe AI-agent workflows for secrets plumbing, policy review, redaction, and non-leaking verification.",
+  "author": {
+    "name": "hmrdkn-labs",
+    "url": "https://github.com/hmrdkn-labs"
+  },
+  "homepage": "https://github.com/hmrdkn-labs/agent-secrets-plumbing",
+  "repository": "https://github.com/hmrdkn-labs/agent-secrets-plumbing",
+  "license": "MIT",
+  "keywords": [
+    "secrets",
+    "openbao",
+    "vault",
+    "security",
+    "agent-skills",
+    "redaction"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agent Secrets Plumbing",
+    "shortDescription": "Safe secrets workflows for AI agents",
+    "longDescription": "Design, review, and verify secrets plumbing without exposing secret values. Covers OpenBao/Vault KV v2, GitHub OIDC, SOPS/age, 1Password, Kubernetes ESO/CSI, runtime injection, redaction, and non-leaking verification.",
+    "developerName": "hmrdkn-labs",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/hmrdkn-labs/agent-secrets-plumbing",
+    "defaultPrompt": [
+      "Review this repository for non-leaking secrets plumbing and produce a safe injection plan."
+    ],
+    "brandColor": "#1F7A5A"
+  }
+}
+

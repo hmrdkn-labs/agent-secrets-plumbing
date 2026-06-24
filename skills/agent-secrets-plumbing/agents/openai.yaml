@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Secrets Plumbing"
+  short_description: "Safe AI workflows for secrets plumbing"
+  default_prompt: "Use $agent-secrets-plumbing to review this repository for non-leaking secrets plumbing and produce a safe injection plan."

@@ -1,0 +1,14 @@
+{
+  "name": "agent-secrets-plumbing",
+  "version": "0.1.0",
+  "description": "Safe AI-agent workflows for secrets plumbing, policy review, redaction, and non-leaking verification.",
+  "author": {
+    "name": "hmrdkn-labs",
+    "url": "https://github.com/hmrdkn-labs"
+  },
+  "homepage": "https://github.com/hmrdkn-labs/agent-secrets-plumbing",
+  "repository": "https://github.com/hmrdkn-labs/agent-secrets-plumbing",
+  "license": "MIT",
+  "skills": "./skills/"
+}
+
