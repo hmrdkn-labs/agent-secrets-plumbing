@@ -15,7 +15,7 @@ GitHub Actions OIDC, SOPS/age, 1Password CLI, and Kubernetes secret delivery.
   ESO/CSI, runtime injection, backend selection, and threat modeling.
 - Stdlib-only scripts that scan for risky surfaces, lint OpenBao/Vault policy,
   render required secret names without values, provide a safe OpenBao helper
-  CLI, and test redaction behavior.
+  CLI/SDK boundary, and test redaction behavior.
 - Thin Codex and Claude plugin manifests for distribution.
 
 ## Safety Boundary

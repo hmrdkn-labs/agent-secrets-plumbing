@@ -86,10 +86,11 @@ keys, `.env` contents, database dumps, or full KV payloads.
   synthetic canary or common secret pattern appears in output/files.
 - `scripts/render-secret-requirements.py <repo> [--format json|md]`: infer
   logical secret names and produce placeholder-only injection plans.
-- `scripts/openbao-agent.py`: safe OpenBao helper for scope plans, health,
-  capability checks, KV v2 writes from local JSON, and present/missing
-  verification without printing values. Live authenticated commands require
-  `BAO_TOKEN` or `VAULT_TOKEN` in the local environment.
+- `scripts/openbao_agent_sdk.py`: small SDK boundary that consumes `BAO_TOKEN`
+  or `VAULT_TOKEN` locally and returns safe metadata only.
+- `scripts/openbao-agent.py`: CLI wrapper around the SDK for scope plans,
+  health, capability checks, KV v2 writes from local JSON, and present/missing
+  verification without printing values.
 - `scripts/validate-package.sh`: run package self-checks.
 
 ## MCP Boundary

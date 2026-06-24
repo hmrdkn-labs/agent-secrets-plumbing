@@ -18,6 +18,29 @@ Configuration:
 Do not pass tokens as command-line flags. Command arguments can end up in shell
 history and process listings.
 
+## SDK Boundary
+
+Use `openbao_agent_sdk.py` when another agent tool or script needs the same
+OpenBao behavior without copying token-handling code. The SDK reads
+`BAO_TOKEN` or `VAULT_TOKEN` from the local process environment for live
+authenticated operations, sends it to OpenBao as the request token, and returns
+only safe metadata.
+
+Minimal pattern:
+
+```python
+from openbao_agent_sdk import OpenBaoClient, Scope
+
+scope = Scope("billing", "staging", "api")
+client = OpenBaoClient.from_env()
+status = client.kv2_presence(scope, ["DATABASE_URL", "API_TOKEN"])
+print(status)
+```
+
+Allowed SDK return data: health status, paths, key names, capabilities, and
+`present` / `missing`. Do not add SDK methods that return raw secret values to
+the caller by default.
+
 ## Safe Commands
 
 Render a scope and policy without contacting OpenBao:
@@ -101,4 +124,3 @@ or full KV payloads.
 - https://openbao.org/api-docs/system/seal-status/
 - https://openbao.org/api-docs/system/capabilities-self/
 - https://openbao.org/docs/secrets/kv/kv-v2/
-

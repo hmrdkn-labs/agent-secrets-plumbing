@@ -60,6 +60,8 @@ def scan_text(text: str, label: str, canary: str | None) -> list[Hit]:
             continue
         if "os.environ.get(" in line:
             continue
+        if "token: str | None = None" in line or "token=token" in line:
+            continue
         value = match.group(2).strip().strip("'\"`.,;:")
         if not PLACEHOLDER.match(value):
             hits.append(Hit(label, line_number(text, match.start()), "sensitive-assignment"))

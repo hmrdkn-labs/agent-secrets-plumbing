@@ -115,6 +115,23 @@ if grep -q 'agent_skill_canary_' "$TMP/write-dry-run.json"; then
   echo "openbao-agent.py dry-run leaked a canary value" >&2
   exit 1
 fi
+PYTHONPATH="$SKILL/scripts" python3 - <<'PY' > "$TMP/sdk-scope.json"
+import json
+from openbao_agent_sdk import Scope, dry_run_write_payload, scope_payload
+
+scope = Scope("billing", "staging", "api")
+payload = scope_payload(scope, ["DATABASE_URL", "API_TOKEN"])
+dry_run = dry_run_write_payload(scope, {
+    "DATABASE_URL": "agent_skill_canary_database_value",
+    "API_TOKEN": "agent_skill_canary_token_value",
+})
+print(json.dumps({"scope": payload, "dry_run": dry_run}, sort_keys=True))
+PY
+grep -q '"logical_path": "projects/billing/staging/api"' "$TMP/sdk-scope.json"
+if grep -q 'agent_skill_canary_' "$TMP/sdk-scope.json"; then
+  echo "openbao_agent_sdk.py dry-run leaked a canary value" >&2
+  exit 1
+fi
 
 echo "== repo redaction =="
 "$SKILL/scripts/redaction-regression.py" "$ROOT/README.md" "$ROOT/SECURITY.md" "$SKILL/SKILL.md" "$SKILL/references" >/dev/null
