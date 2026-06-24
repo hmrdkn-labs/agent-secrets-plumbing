@@ -19,7 +19,7 @@ TOKEN_PATTERNS = [
     ("onepassword-service-token", re.compile(r"\bops_[A-Za-z0-9_=-]{20,}\b")),
 ]
 SENSITIVE_ASSIGNMENT = re.compile(
-    r"(?i)\b(SECRET|TOKEN|PASSWORD|PRIVATE_KEY|CLIENT_SECRET|DATABASE_URL|API_KEY)\b\s*[:=]\s*['\"]?([^'\"\s#]+)"
+    r"(?i)\b(SECRET|TOKEN|PASSWORD|PRIVATE_KEY|CLIENT_SECRET|DATABASE_URL|API_KEY)\b[ \t]*(?::|=)[ \t]*['\"]?([^'\"\s#]+)"
 )
 PLACEHOLDER = re.compile(
     r"(?i)^(<[^>]+>|\$\{[^}]+\}|\.\.\.|redacted|placeholder|example|sample|dummy|change-?me|true|false|read|write)$"
@@ -57,6 +57,8 @@ def scan_text(text: str, label: str, canary: str | None) -> list[Hit]:
         if "fixture-only" in line or "findings.append(" in line:
             continue
         if "os.getenv(" in line or "getenv(" in line or "process.env." in line:
+            continue
+        if "os.environ.get(" in line:
             continue
         value = match.group(2).strip().strip("'\"`.,;:")
         if not PLACEHOLDER.match(value):

@@ -59,6 +59,8 @@ keys, `.env` contents, database dumps, or full KV payloads.
   `references/backend-matrix.md`
 - OpenBao/Vault KV v2, AppRole, policy, response wrapping:
   `references/openbao-vault-kv-v2.md`
+- Agent-safe self-hosted OpenBao CLI usage:
+  `references/openbao-agent-cli.md`
 - GitHub Actions OIDC and CI review:
   `references/ci-oidc.md`
 - SOPS/age GitOps:
@@ -84,6 +86,10 @@ keys, `.env` contents, database dumps, or full KV payloads.
   synthetic canary or common secret pattern appears in output/files.
 - `scripts/render-secret-requirements.py <repo> [--format json|md]`: infer
   logical secret names and produce placeholder-only injection plans.
+- `scripts/openbao-agent.py`: safe OpenBao helper for scope plans, health,
+  capability checks, KV v2 writes from local JSON, and present/missing
+  verification without printing values. Live authenticated commands require
+  `BAO_TOKEN` or `VAULT_TOKEN` in the local environment.
 - `scripts/validate-package.sh`: run package self-checks.
 
 ## MCP Boundary

@@ -89,6 +89,33 @@ PY
 grep -q '"DATABASE_URL"' "$TMP/requirements.json"
 grep -q '"API_TOKEN"' "$TMP/requirements.json"
 
+echo "== fixture: openbao agent cli =="
+"$SKILL/scripts/openbao-agent.py" scope-plan \
+  --project billing \
+  --environment staging \
+  --service api \
+  --key DATABASE_URL \
+  --format json > "$TMP/scope.json"
+grep -q '"logical_path": "projects/billing/staging/api"' "$TMP/scope.json"
+grep -q '"data_path": "kv/data/projects/billing/staging/api"' "$TMP/scope.json"
+cat > "$TMP/local-secrets.json" <<'JSON'
+{
+  "DATABASE_URL": "agent_skill_canary_database_value",
+  "API_TOKEN": "agent_skill_canary_token_value"
+}
+JSON
+"$SKILL/scripts/openbao-agent.py" write-kv \
+  --project billing \
+  --environment staging \
+  --service api \
+  --secret-file "$TMP/local-secrets.json" > "$TMP/write-dry-run.json"
+grep -q '"mode": "dry-run"' "$TMP/write-dry-run.json"
+grep -q '"DATABASE_URL"' "$TMP/write-dry-run.json"
+if grep -q 'agent_skill_canary_' "$TMP/write-dry-run.json"; then
+  echo "openbao-agent.py dry-run leaked a canary value" >&2
+  exit 1
+fi
+
 echo "== repo redaction =="
 "$SKILL/scripts/redaction-regression.py" "$ROOT/README.md" "$ROOT/SECURITY.md" "$SKILL/SKILL.md" "$SKILL/references" >/dev/null
 

@@ -14,7 +14,8 @@ GitHub Actions OIDC, SOPS/age, 1Password CLI, and Kubernetes secret delivery.
 - One-hop references for OpenBao/Vault KV v2, CI OIDC, SOPS/age, Kubernetes
   ESO/CSI, runtime injection, backend selection, and threat modeling.
 - Stdlib-only scripts that scan for risky surfaces, lint OpenBao/Vault policy,
-  render required secret names without values, and test redaction behavior.
+  render required secret names without values, provide a safe OpenBao helper
+  CLI, and test redaction behavior.
 - Thin Codex and Claude plugin manifests for distribution.
 
 ## Safety Boundary
@@ -37,6 +38,7 @@ skills/agent-secrets-plumbing/scripts/secret-surface-audit.py <repo>
 skills/agent-secrets-plumbing/scripts/openbao-policy-lint.py <policy-file>
 skills/agent-secrets-plumbing/scripts/redaction-regression.py --canary <value> <path...>
 skills/agent-secrets-plumbing/scripts/render-secret-requirements.py <repo> --format md
+skills/agent-secrets-plumbing/scripts/openbao-agent.py scope-plan --project app --environment dev --service api
 ```
 
 ## Source Basis
@@ -45,4 +47,3 @@ This package distills current public guidance from OpenBao, OWASP, GitHub
 Actions OIDC, SOPS, 1Password, Kubernetes External Secrets Operator, Secrets
 Store CSI Driver, Agent Skills, and MCP security documentation. Source URLs are
 kept in the reference files; no full public documentation mirrors are stored.
-
